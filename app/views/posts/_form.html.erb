@@ -1,0 +1,47 @@
+<!--partial 是一個包含 HTML 和 Ruby 程式的片段，可以在其他地方重複使用。-->
+<!--在這個例子中，表單被用在新增文章，基本上跟編輯文章的表單相同，-->
+<!--兩者都有相同的 name 跟 title 文字欄位跟 content 文字區塊欄位，以及送出按鈕。-->
+
+<!--這個 partial 接收了來自 view 的所有的實例變數(instance variables)。在這個例子中，controller 中設定了 @post 是新的 Post 物件，所以在 view 跟這個 partial 中也都有這個 @post 物件。-->
+
+<!--想知道更多 partials 的資訊，請參閱 Layouts and Rendering in Rails 。-->
+
+<!--這個 form_for block (程式碼區塊)被用來建立 HTML 表單。在 block 之中，你可以使用各種函式來建構表單。-->
+<!--例如 f.text_field :name 建立出一個文字輸入框，並填入 @post 的 name 屬性資料。但這個表單只能基於這個 model 有的屬性-->
+<!--(在這個例子是 name、title跟content)。Rails 偏好使用 form_for 而不是讓你手寫表單 HTML，這是因為程式碼可以更加簡潔，而且可以明確地綁在一個 model 實例上。-->
+
+<!--form_for block 也非常聰明，不同的 New Post 跟 Edit Post 表單 action 屬性跟送出按鈕的文字也會跟著不同-->
+<!--(譯註: 根據 @post 的不同，前者是全新的，後者是已經建立過的)。-->
+
+<!--如果你需要建立任意欄位的 HTML 表單，而不綁在某一個 model 上，你可以使用 form_tag 函式。
+它也提供了建構表單的函式而不需要綁在 model 實例上。-->
+
+<%= form_for(@post) do |f| %>
+  <% if @post.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@post.errors.count, "error") %> prohibited this post from being saved:</h2>
+
+      <ul>
+      <% @post.errors.full_messages.each do |msg| %>
+              <li><%= msg %></li>
+            <% end %>
+            </ul>
+          </div>
+        <% end %>
+
+  <div class="field">
+    <%= f.label "姓名" %><br />
+    <%= f.text_field :name %>
+  </div>
+  <div class="field">
+    <%= f.label "标题" %><br />
+    <%= f.text_field :title %>
+  </div>
+  <div class="field">
+    <%= f.label "内容" %><br />
+    <%= f.text_area :content %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

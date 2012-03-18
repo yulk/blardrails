@@ -1,0 +1,11 @@
+<h1>Editing post</h1>
+
+<%= render 'form' %>
+
+<!--其中  render 'form'  是你第一次遇到 partials 。 -->
+<!--partial 是一個包含 HTML 和 Ruby 程式的片段，可以在其他地方重複使用。-->
+<!--在這個例子中，表單被用在新增文章，基本上跟編輯文章的表單相同，-->
+<!--兩者都有相同的 name 跟 title 文字欄位跟 content 文字區塊欄位，以及送出按鈕。-->
+
+<%= link_to 'Show', @post %> |
+<%= link_to 'Back', posts_path %>

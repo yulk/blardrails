@@ -1,0 +1,31 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>作者:</b>
+  <%= @post.name %>
+</p>
+
+<p>
+  <b>标题:</b>
+  <%= @post.title %>
+</p>
+
+<p>
+  <b>内容:</b>
+    <%= @post.content %>
+  </p>
+
+
+<!--每次 render 函式迭代-->
+<!--post.comments ，它會把每一篇留言指定到一個與 partial 同名的區域變數(local variable)，在這個例子中，就可以在 partial 裡面使用。-->
+<!--(譯註：也就是在 _comment.html.erb+ 這個 partial 裡面的 comment 變數就是一篇篇的留言)-->
+
+<h2>Comments</h2>
+<%= render @post.comments %>
+
+<!--定義了要顯示 comments/form 這個樣板，Rails 會根據其中的斜線去找 app/views/comments 目錄下的 _form.html.erb 檔案。-->
+<h2>Add a comment:</h2>
+<%= render "comments/form" %>
+
+<%= link_to '编辑', edit_post_path(@post) %> |
+<%= link_to 'Back', posts_path %>
